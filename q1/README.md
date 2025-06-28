@@ -86,22 +86,6 @@ pip install -r requirements.txt
 python -m http.server 8000
 ```
 
-## Project Structure
-
-```
-llm-inference-calculator/
-├── index.html          # Main web interface
-├── style.css           # Styling and responsive design
-├── script.js           # Frontend JavaScript logic
-├── calculator.py       # Python backend calculations
-├── requirements.txt    # Python dependencies
-├── README.md          # This file
-└── examples/          # Example configurations
-    ├── chatbot.py     # Chatbot configuration example
-    ├── summarization.py # Document summarization example
-    └── classification.py # Batch classification example
-```
-
 ## Technical Details
 
 ### Memory Calculation Formula
@@ -195,7 +179,7 @@ Typical accuracy:
 
 ```bash
 # Clone your fork
-git clone https://github.com/yourusername/llm-inference-calculator.git
+git clone https://github.com/Pranav452/Day-5/tree/main/q1
 
 # Install development dependencies
 pip install -r requirements-dev.txt
