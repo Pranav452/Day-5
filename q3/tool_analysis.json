@@ -1,0 +1,490 @@
+{
+  "tools": [
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot",
+      "description": "AI pair programmer with excellent IDE integration",
+      "strengths": ["code completion", "inline suggestions", "context awareness"],
+      "weaknesses": ["limited explanation", "no debugging help"],
+      "optimizationStrategies": {
+        "codeGeneration": {
+          "patterns": ["function_signature_first", "descriptive_comments", "type_hints"],
+          "templates": [
+            "// {purpose}\nfunction {functionName}({parameters}) {\n  // {implementation_hint}\n}",
+            "/**\n * {description}\n * @param {type} {param} - {param_description}\n * @returns {return_type}\n */",
+            "// Example usage:\n// {example_call}"
+          ],
+          "bestPractices": [
+            "Start with clear function signatures",
+            "Use descriptive variable names",
+            "Include usage examples in comments",
+            "Specify expected input/output types"
+          ]
+        },
+        "debugging": {
+          "patterns": ["error_context", "expected_behavior", "minimal_reproduction"],
+          "templates": [
+            "// Expected: {expected}\n// Actual: {actual}\n// Error: {error_message}",
+            "// This should {intended_behavior} but instead {current_behavior}"
+          ],
+          "bestPractices": [
+            "Describe expected vs actual behavior",
+            "Include relevant error messages",
+            "Provide minimal code context"
+          ]
+        },
+        "refactoring": {
+          "patterns": ["before_after_structure", "improvement_goals"],
+          "templates": [
+            "// Refactor this code to be more {goal}:\n{original_code}",
+            "// Convert from {old_pattern} to {new_pattern}"
+          ],
+          "bestPractices": [
+            "State refactoring goals clearly",
+            "Show current code structure",
+            "Specify desired improvements"
+          ]
+        }
+      },
+      "contextRequirements": {
+        "language": "high",
+        "framework": "medium",
+        "project_structure": "low",
+        "dependencies": "medium"
+      },
+      "responseFormat": "code_focused",
+      "maxPromptLength": 2000,
+      "optimalPromptLength": 150
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "description": "AI-first code editor with advanced refactoring capabilities",
+      "strengths": ["file context", "large codebase understanding", "architectural changes"],
+      "weaknesses": ["setup complexity", "resource intensive"],
+      "optimizationStrategies": {
+        "codeGeneration": {
+          "patterns": ["file_context", "architectural_pattern", "multi_file_awareness"],
+          "templates": [
+            "In {filename}, create a {component_type} that {functionality}:\n// File: {filename}\n{context_code}",
+            "Update {filename} to implement {pattern}:\n// Current structure:\n{current_structure}\n// Desired changes:\n{changes}"
+          ],
+          "bestPractices": [
+            "Reference specific files and locations",
+            "Include architectural context",
+            "Mention related files and dependencies",
+            "Use project-specific naming conventions"
+          ]
+        },
+        "debugging": {
+          "patterns": ["multi_file_context", "system_level_debugging", "integration_issues"],
+          "templates": [
+            "Debug integration between {file1} and {file2}:\n// Issue: {problem_description}\n// Files involved: {file_list}",
+            "System-level issue in {component}: {error_description}\n// Context: {system_context}"
+          ],
+          "bestPractices": [
+            "Include multiple file context",
+            "Describe system-level interactions",
+            "Reference project architecture",
+            "Include relevant file paths"
+          ]
+        },
+        "refactoring": {
+          "patterns": ["large_scale_refactoring", "architectural_improvements", "cross_file_changes"],
+          "templates": [
+            "Refactor {component} across multiple files to {improvement_goal}:\n// Files to update: {file_list}\n// Current architecture: {current_arch}\n// Target architecture: {target_arch}",
+            "Extract {functionality} from {source_file} into a new {target_type}"
+          ],
+          "bestPractices": [
+            "Describe architectural changes",
+            "List all affected files",
+            "Explain refactoring rationale",
+            "Include migration strategy"
+          ]
+        }
+      },
+      "contextRequirements": {
+        "language": "high",
+        "framework": "high",
+        "project_structure": "high",
+        "dependencies": "high"
+      },
+      "responseFormat": "explanation_with_code",
+      "maxPromptLength": 4000,
+      "optimalPromptLength": 300
+    },
+    {
+      "id": "replit-ai",
+      "name": "Replit AI",
+      "description": "Browser-based coding assistant with zero setup",
+      "strengths": ["beginner friendly", "tutorial style", "project setup"],
+      "weaknesses": ["limited advanced features", "basic refactoring"],
+      "optimizationStrategies": {
+        "codeGeneration": {
+          "patterns": ["step_by_step", "tutorial_style", "beginner_friendly"],
+          "templates": [
+            "Create a {project_type} that {functionality}. Explain each step:\n1. {step1}\n2. {step2}\n3. {step3}",
+            "Build {feature} for beginners:\n// Step 1: {explanation1}\n{code1}\n// Step 2: {explanation2}\n{code2}"
+          ],
+          "bestPractices": [
+            "Use tutorial-style explanations",
+            "Break down complex tasks into steps",
+            "Include setup instructions",
+            "Assume minimal prior knowledge"
+          ]
+        },
+        "debugging": {
+          "patterns": ["guided_debugging", "educational_approach", "common_mistakes"],
+          "templates": [
+            "Help debug this common {language} mistake:\n{error_code}\n// What's wrong and how to fix it:",
+            "Step-by-step debugging for beginners:\n1. Identify the error: {error}\n2. Understand why: {explanation}\n3. Fix it: {solution}"
+          ],
+          "bestPractices": [
+            "Explain the debugging process",
+            "Teach debugging techniques",
+            "Identify common mistake patterns",
+            "Provide educational value"
+          ]
+        },
+        "learning": {
+          "patterns": ["concept_explanation", "practice_exercises", "progressive_difficulty"],
+          "templates": [
+            "Teach {concept} with a practical example:\n// Concept: {explanation}\n// Example: {code_example}\n// Practice: {exercise}",
+            "Explain {topic} step by step with code examples"
+          ],
+          "bestPractices": [
+            "Focus on learning outcomes",
+            "Provide practical examples",
+            "Include practice exercises",
+            "Build complexity gradually"
+          ]
+        }
+      },
+      "contextRequirements": {
+        "language": "medium",
+        "framework": "low",
+        "project_structure": "low",
+        "dependencies": "low"
+      },
+      "responseFormat": "tutorial_with_explanation",
+      "maxPromptLength": 1500,
+      "optimalPromptLength": 200
+    },
+    {
+      "id": "amazon-codewhisperer",
+      "name": "Amazon CodeWhisperer",
+      "description": "Enterprise-focused with AWS integration",
+      "strengths": ["security focus", "enterprise patterns", "AWS integration"],
+      "weaknesses": ["limited languages", "AWS-centric"],
+      "optimizationStrategies": {
+        "codeGeneration": {
+          "patterns": ["security_first", "enterprise_patterns", "aws_integration"],
+          "templates": [
+            "Create secure {functionality} following enterprise best practices:\n// Security considerations: {security_notes}\n// AWS services: {aws_services}",
+            "Implement {feature} with AWS {service} integration:\n// Requirements: {requirements}\n// Security: {security_requirements}"
+          ],
+          "bestPractices": [
+            "Emphasize security considerations",
+            "Use enterprise coding standards",
+            "Include AWS service integration",
+            "Follow compliance requirements"
+          ]
+        },
+        "security": {
+          "patterns": ["vulnerability_assessment", "secure_coding", "compliance_focus"],
+          "templates": [
+            "Review code for security vulnerabilities:\n{code_to_review}\n// Check for: {security_checklist}",
+            "Implement secure {functionality}:\n// Security requirements: {security_req}\n// Compliance standards: {compliance}"
+          ],
+          "bestPractices": [
+            "Highlight security implications",
+            "Reference compliance standards",
+            "Include vulnerability assessments",
+            "Use secure coding patterns"
+          ]
+        },
+        "infrastructure": {
+          "patterns": ["cloud_architecture", "scalability_focus", "aws_best_practices"],
+          "templates": [
+            "Design {system} architecture using AWS best practices:\n// Components: {components}\n// Scaling strategy: {scaling}\n// Security: {security}",
+            "Implement {functionality} with AWS {services}:\n// Architecture: {architecture}\n// Best practices: {best_practices}"
+          ],
+          "bestPractices": [
+            "Focus on cloud architecture",
+            "Include scalability considerations",
+            "Reference AWS best practices",
+            "Address enterprise requirements"
+          ]
+        }
+      },
+      "contextRequirements": {
+        "language": "high",
+        "framework": "medium",
+        "project_structure": "medium",
+        "dependencies": "high"
+      },
+      "responseFormat": "enterprise_focused",
+      "maxPromptLength": 3000,
+      "optimalPromptLength": 250
+    },
+    {
+      "id": "claude-dev",
+      "name": "Claude (Anthropic)",
+      "description": "Excellent for code analysis and explanations",
+      "strengths": ["detailed analysis", "code explanations", "architectural guidance"],
+      "weaknesses": ["verbose responses", "not real-time"],
+      "optimizationStrategies": {
+        "codeGeneration": {
+          "patterns": ["analytical_approach", "detailed_explanation", "multiple_solutions"],
+          "templates": [
+            "Analyze and implement {functionality}:\n1. Requirements analysis: {requirements}\n2. Design considerations: {design_notes}\n3. Implementation options: {options}\n4. Recommended approach: {recommendation}",
+            "Create {feature} with detailed explanation:\n// Approach: {approach}\n// Rationale: {rationale}\n// Implementation:"
+          ],
+          "bestPractices": [
+            "Request detailed analysis",
+            "Ask for multiple approaches",
+            "Include rationale for decisions",
+            "Seek architectural guidance"
+          ]
+        },
+        "codeReview": {
+          "patterns": ["comprehensive_analysis", "improvement_suggestions", "best_practices_review"],
+          "templates": [
+            "Comprehensive code review of {component}:\n{code_to_review}\n// Please analyze:\n1. Code quality\n2. Performance implications\n3. Security considerations\n4. Improvement suggestions",
+            "Review and improve this {language} code:\n{code}\n// Focus on: {review_aspects}"
+          ],
+          "bestPractices": [
+            "Request comprehensive analysis",
+            "Ask for improvement suggestions",
+            "Include multiple review criteria",
+            "Seek educational explanations"
+          ]
+        },
+        "architecture": {
+          "patterns": ["system_design", "scalability_analysis", "trade_off_discussion"],
+          "templates": [
+            "Design architecture for {system}:\n// Requirements: {requirements}\n// Constraints: {constraints}\n// Please discuss trade-offs and provide multiple options",
+            "Analyze current architecture and suggest improvements:\n// Current: {current_architecture}\n// Goals: {improvement_goals}"
+          ],
+          "bestPractices": [
+            "Request trade-off analysis",
+            "Ask for multiple design options",
+            "Include scalability considerations",
+            "Seek detailed explanations"
+          ]
+        }
+      },
+      "contextRequirements": {
+        "language": "high",
+        "framework": "high",
+        "project_structure": "medium",
+        "dependencies": "medium"
+      },
+      "responseFormat": "analytical_detailed",
+      "maxPromptLength": 5000,
+      "optimalPromptLength": 400
+    },
+    {
+      "id": "tabnine",
+      "name": "Tabnine",
+      "description": "Privacy-focused with on-premise options",
+      "strengths": ["privacy", "local deployment", "pattern recognition"],
+      "weaknesses": ["limited explanations", "basic debugging"],
+      "optimizationStrategies": {
+        "codeGeneration": {
+          "patterns": ["pattern_based", "context_driven", "local_optimization"],
+          "templates": [
+            "Complete this {language} pattern:\n{code_context}\n// Expected completion: {expected_pattern}",
+            "Generate {functionality} following project patterns:\n// Project style: {style_guide}\n// Similar code: {similar_examples}"
+          ],
+          "bestPractices": [
+            "Provide clear code context",
+            "Use consistent patterns",
+            "Include similar examples",
+            "Follow project conventions"
+          ]
+        },
+        "completion": {
+          "patterns": ["incremental_completion", "pattern_matching", "context_awareness"],
+          "templates": [
+            "Complete this function based on project patterns:\n{function_start}\n// Similar functions in project: {examples}",
+            "Auto-complete {code_type}:\n{partial_code}\n// Context: {context_info}"
+          ],
+          "bestPractices": [
+            "Provide partial code context",
+            "Include similar examples",
+            "Use consistent naming",
+            "Follow established patterns"
+          ]
+        },
+        "optimization": {
+          "patterns": ["performance_focus", "memory_efficiency", "local_processing"],
+          "templates": [
+            "Optimize this code for {performance_goal}:\n{code_to_optimize}\n// Current performance: {current_metrics}\n// Target: {target_metrics}",
+            "Improve {aspect} of this {language} code:\n{code}"
+          ],
+          "bestPractices": [
+            "Focus on performance improvements",
+            "Include current metrics",
+            "Specify optimization goals",
+            "Use measurable criteria"
+          ]
+        }
+      },
+      "contextRequirements": {
+        "language": "high",
+        "framework": "medium",
+        "project_structure": "high",
+        "dependencies": "low"
+      },
+      "responseFormat": "code_completion",
+      "maxPromptLength": 1000,
+      "optimalPromptLength": 100
+    },
+    {
+      "id": "chatgpt-coding",
+      "name": "ChatGPT",
+      "description": "Versatile AI for coding tasks and learning",
+      "strengths": ["versatility", "explanations", "learning support"],
+      "weaknesses": ["context limitations", "not specialized"],
+      "optimizationStrategies": {
+        "codeGeneration": {
+          "patterns": ["clear_requirements", "step_by_step", "example_driven"],
+          "templates": [
+            "Create {functionality} in {language}:\nRequirements:\n- {req1}\n- {req2}\n- {req3}\nPlease provide code with explanations.",
+            "Build {project_type} with these features:\n{feature_list}\nInclude setup instructions and usage examples."
+          ],
+          "bestPractices": [
+            "Provide clear requirements",
+            "Ask for explanations",
+            "Include usage examples",
+            "Request step-by-step approach"
+          ]
+        },
+        "debugging": {
+          "patterns": ["problem_description", "error_details", "context_information"],
+          "templates": [
+            "Debug this {language} code:\n{code_with_error}\nError message: {error_msg}\nExpected behavior: {expected}\nPlease explain the issue and provide a fix.",
+            "Help fix this bug:\nProblem: {problem_description}\nCode: {code}\nWhat I've tried: {attempted_solutions}"
+          ],
+          "bestPractices": [
+            "Describe the problem clearly",
+            "Include error messages",
+            "Explain expected behavior",
+            "Request detailed explanations"
+          ]
+        },
+        "learning": {
+          "patterns": ["concept_teaching", "practical_examples", "progressive_learning"],
+          "templates": [
+            "Teach me {concept} with practical examples:\n- Explain the concept\n- Show code examples\n- Provide practice exercises\n- Include common mistakes to avoid",
+            "Help me understand {topic} by building a simple {project_type}"
+          ],
+          "bestPractices": [
+            "Request teaching approach",
+            "Ask for practical examples",
+            "Include common mistakes",
+            "Request practice exercises"
+          ]
+        }
+      },
+      "contextRequirements": {
+        "language": "medium",
+        "framework": "medium",
+        "project_structure": "low",
+        "dependencies": "medium"
+      },
+      "responseFormat": "conversational_detailed",
+      "maxPromptLength": 4000,
+      "optimalPromptLength": 300
+    }
+  ],
+  "intentCategories": [
+    {
+      "id": "code_generation",
+      "name": "Code Generation",
+      "description": "Creating new code from scratch",
+      "keywords": ["create", "generate", "build", "implement", "write", "make"],
+      "complexityFactors": ["scope", "dependencies", "architecture", "performance_requirements"],
+      "optimizationFocus": ["clarity", "completeness", "maintainability"]
+    },
+    {
+      "id": "debugging",
+      "name": "Debugging",
+      "description": "Finding and fixing code issues",
+      "keywords": ["debug", "fix", "error", "bug", "issue", "problem", "broken"],
+      "complexityFactors": ["error_type", "codebase_size", "integration_complexity"],
+      "optimizationFocus": ["error_context", "reproduction_steps", "solution_clarity"]
+    },
+    {
+      "id": "code_review",
+      "name": "Code Review",
+      "description": "Analyzing and improving existing code",
+      "keywords": ["review", "analyze", "improve", "optimize", "refactor", "evaluate"],
+      "complexityFactors": ["code_size", "business_logic_complexity", "technical_debt"],
+      "optimizationFocus": ["comprehensive_analysis", "actionable_feedback", "best_practices"]
+    },
+    {
+      "id": "documentation",
+      "name": "Documentation",
+      "description": "Creating or improving code documentation",
+      "keywords": ["document", "comment", "explain", "describe", "annotate"],
+      "complexityFactors": ["audience_level", "code_complexity", "documentation_scope"],
+      "optimizationFocus": ["clarity", "completeness", "examples"]
+    },
+    {
+      "id": "refactoring",
+      "name": "Refactoring",
+      "description": "Restructuring existing code without changing functionality",
+      "keywords": ["refactor", "restructure", "reorganize", "clean up", "modernize"],
+      "complexityFactors": ["scope", "dependencies", "risk_level", "testing_requirements"],
+      "optimizationFocus": ["clear_goals", "impact_assessment", "migration_strategy"]
+    },
+    {
+      "id": "learning",
+      "name": "Learning",
+      "description": "Understanding concepts and gaining knowledge",
+      "keywords": ["learn", "understand", "explain", "teach", "tutorial", "how to"],
+      "complexityFactors": ["concept_difficulty", "prior_knowledge", "practical_application"],
+      "optimizationFocus": ["educational_value", "practical_examples", "progressive_difficulty"]
+    }
+  ],
+  "complexityLevels": [
+    {
+      "level": "simple",
+      "description": "Basic tasks with minimal dependencies",
+      "characteristics": ["single file", "basic algorithms", "standard libraries"],
+      "optimization_approach": "focus_on_clarity"
+    },
+    {
+      "level": "moderate",
+      "description": "Multi-component tasks with some complexity",
+      "characteristics": ["multiple files", "external dependencies", "design patterns"],
+      "optimization_approach": "balance_detail_and_conciseness"
+    },
+    {
+      "level": "complex",
+      "description": "Large-scale tasks with high complexity",
+      "characteristics": ["system architecture", "performance critical", "security sensitive"],
+      "optimization_approach": "comprehensive_context_and_analysis"
+    }
+  ],
+  "optimizationMetrics": {
+    "clarity_score": {
+      "weight": 0.25,
+      "factors": ["clear_intent", "specific_requirements", "unambiguous_language"]
+    },
+    "context_score": {
+      "weight": 0.20,
+      "factors": ["relevant_background", "technical_details", "constraints"]
+    },
+    "tool_alignment": {
+      "weight": 0.30,
+      "factors": ["tool_strengths_match", "format_compatibility", "length_optimization"]
+    },
+    "completeness_score": {
+      "weight": 0.25,
+      "factors": ["all_requirements_covered", "edge_cases_considered", "examples_included"]
+    }
+  }
+} 

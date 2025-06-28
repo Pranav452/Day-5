@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Prompt Optimizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-magic"></i> Adaptive Prompt Optimizer</h1>
+            <p class="subtitle">Optimize your prompts for specific AI coding tools</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="prompt-input-container">
+                <h2><i class="fas fa-edit"></i> Enter Your Prompt</h2>
+                <textarea 
+                    id="original-prompt" 
+                    placeholder="Enter your coding prompt here. For example: 'Create a React component that displays a user profile with avatar, name, and bio'"
+                    rows="6"
+                ></textarea>
+                
+                <div class="input-controls">
+                    <div class="tool-selection">
+                        <label for="target-tool">Target AI Tool:</label>
+                        <select id="target-tool">
+                            <option value="">Select a tool to optimize for...</option>
+                            <option value="github-copilot">GitHub Copilot</option>
+                            <option value="cursor">Cursor</option>
+                            <option value="claude-dev">Claude (Anthropic)</option>
+                            <option value="replit-ai">Replit AI</option>
+                            <option value="amazon-codewhisperer">Amazon CodeWhisperer</option>
+                            <option value="tabnine">Tabnine</option>
+                            <option value="chatgpt-coding">ChatGPT</option>
+                        </select>
+                    </div>
+
+                    <div class="context-inputs">
+                        <div class="input-group">
+                            <label for="intent-select">Intent:</label>
+                            <select id="intent-select">
+                                <option value="code_generation">Code Generation</option>
+                                <option value="debugging">Debugging</option>
+                                <option value="code_review">Code Review</option>
+                                <option value="refactoring">Refactoring</option>
+                                <option value="documentation">Documentation</option>
+                                <option value="learning">Learning</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="language-select">Language:</label>
+                            <select id="language-select">
+                                <option value="javascript">JavaScript</option>
+                                <option value="typescript">TypeScript</option>
+                                <option value="python">Python</option>
+                                <option value="java">Java</option>
+                                <option value="go">Go</option>
+                                <option value="rust">Rust</option>
+                                <option value="php">PHP</option>
+                                <option value="ruby">Ruby</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="complexity-select">Complexity:</label>
+                            <select id="complexity-select">
+                                <option value="simple">Simple</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="complex">Complex</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="analyze-btn" class="btn-secondary">
+                        <i class="fas fa-search"></i> Analyze Prompt
+                    </button>
+                    <button id="optimize-btn" class="btn-primary" disabled>
+                        <i class="fas fa-magic"></i> Optimize Prompt
+                    </button>
+                    <button id="optimize-all-btn" class="btn-tertiary">
+                        <i class="fas fa-layer-group"></i> Optimize for All Tools
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Section -->
+        <div class="analysis-section" id="analysis-section" style="display: none;">
+            <h2><i class="fas fa-chart-line"></i> Prompt Analysis</h2>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>Detected Intent</h3>
+                    <div id="detected-intent" class="analysis-value">-</div>
+                </div>
+                <div class="analysis-card">
+                    <h3>Complexity Level</h3>
+                    <div id="detected-complexity" class="analysis-value">-</div>
+                </div>
+                <div class="analysis-card">
+                    <h3>Domain</h3>
+                    <div id="detected-domain" class="analysis-value">-</div>
+                </div>
+                <div class="analysis-card">
+                    <h3>Language</h3>
+                    <div id="detected-language" class="analysis-value">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results-section" style="display: none;">
+            <h2><i class="fas fa-magic"></i> Optimization Results</h2>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Optimizing your prompt...</p>
+            </div>
+
+            <!-- Single Tool Result -->
+            <div class="single-result" id="single-result" style="display: none;">
+                <div class="optimization-header">
+                    <div class="tool-info">
+                        <h3 id="result-tool-name">Tool Name</h3>
+                        <div class="optimization-score">
+                            <span id="optimization-score">0</span>% Optimized
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-container">
+                    <div class="prompt-comparison">
+                        <div class="prompt-before">
+                            <h4><i class="fas fa-file-alt"></i> Original Prompt</h4>
+                            <div class="prompt-display" id="original-display"></div>
+                        </div>
+                        <div class="prompt-after">
+                            <h4><i class="fas fa-magic"></i> Optimized Prompt</h4>
+                            <div class="prompt-display" id="optimized-display"></div>
+                            <button class="copy-btn" id="copy-optimized">
+                                <i class="fas fa-copy"></i> Copy Optimized
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="optimizations-explanation">
+                        <h4><i class="fas fa-lightbulb"></i> Applied Optimizations</h4>
+                        <div id="optimizations-list"></div>
+                    </div>
+
+                    <div class="tool-tips">
+                        <h4><i class="fas fa-tips"></i> Tool-Specific Tips</h4>
+                        <ul id="tool-tips-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Tools Results -->
+            <div class="all-results" id="all-results" style="display: none;">
+                <div class="results-grid" id="results-grid">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Example Prompts Section -->
+        <div class="examples-section">
+            <h3><i class="fas fa-lightbulb"></i> Example Prompts to Try</h3>
+            <div class="examples-grid">
+                <div class="example-card" data-prompt="Create a React component that displays user profiles">
+                    <h4>React Component</h4>
+                    <p>"Create a React component that displays user profiles"</p>
+                    <span class="example-intent">Code Generation</span>
+                </div>
+                <div class="example-card" data-prompt="Debug this JavaScript function that should calculate fibonacci numbers">
+                    <h4>Debug Function</h4>
+                    <p>"Debug this JavaScript function that should calculate fibonacci numbers"</p>
+                    <span class="example-intent">Debugging</span>
+                </div>
+                <div class="example-card" data-prompt="Refactor this Python class to follow SOLID principles">
+                    <h4>Code Refactoring</h4>
+                    <p>"Refactor this Python class to follow SOLID principles"</p>
+                    <span class="example-intent">Refactoring</span>
+                </div>
+                <div class="example-card" data-prompt="Explain how this sorting algorithm works step by step">
+                    <h4>Code Explanation</h4>
+                    <p>"Explain how this sorting algorithm works step by step"</p>
+                    <span class="example-intent">Learning</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Adaptive Prompt Optimizer | <a href="https://github.com/yourusername/prompt-optimizer">View on GitHub</a></p>
+            <p class="disclaimer">Optimizations are based on tool-specific best practices and may vary based on specific use cases.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
