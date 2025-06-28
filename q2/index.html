@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Coding Agent Recommendation System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-robot"></i> AI Coding Agent Recommender</h1>
+            <p class="subtitle">Find the perfect AI coding assistant for your project</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="input-section">
+            <div class="task-input-container">
+                <h2><i class="fas fa-edit"></i> Describe Your Coding Task</h2>
+                <textarea 
+                    id="task-description" 
+                    placeholder="Describe your coding project in natural language. For example: 'I need to build a React web app with a Python backend for an e-commerce platform. I'm a beginner and working solo with a limited budget.'"
+                    rows="4"
+                ></textarea>
+                
+                <div class="quick-filters">
+                    <div class="filter-group">
+                        <label for="project-type">Project Type:</label>
+                        <select id="project-type">
+                            <option value="">Any</option>
+                            <option value="web development">Web Development</option>
+                            <option value="mobile development">Mobile Development</option>
+                            <option value="data science">Data Science</option>
+                            <option value="backend">Backend Development</option>
+                            <option value="devops">DevOps</option>
+                            <option value="game development">Game Development</option>
+                            <option value="enterprise">Enterprise Software</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="experience-level">Experience Level:</label>
+                        <select id="experience-level">
+                            <option value="">Any</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="team-size">Team Size:</label>
+                        <select id="team-size">
+                            <option value="">Any</option>
+                            <option value="solo">Solo Developer</option>
+                            <option value="small">Small Team (2-5)</option>
+                            <option value="large">Large Team (5+)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="budget">Budget Preference:</label>
+                        <select id="budget">
+                            <option value="">Any</option>
+                            <option value="free">Free Only</option>
+                            <option value="freemium">Free/Paid Tiers</option>
+                            <option value="paid">Paid Solutions</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="analyze-btn" class="analyze-button">
+                    <i class="fas fa-search"></i> Get Recommendations
+                </button>
+            </div>
+        </div>
+
+        <div class="results-section" id="results-section" style="display: none;">
+            <h2><i class="fas fa-trophy"></i> Top 3 Recommendations</h2>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Analyzing your requirements...</p>
+            </div>
+
+            <div class="recommendations-grid" id="recommendations-grid">
+                <!-- Recommendations will be populated here -->
+            </div>
+
+            <div class="comparison-section">
+                <h3><i class="fas fa-chart-bar"></i> Detailed Comparison</h3>
+                <div class="comparison-table-container">
+                    <table class="comparison-table" id="comparison-table">
+                        <!-- Comparison table will be populated here -->
+                    </table>
+                </div>
+            </div>
+
+            <div class="all-agents-section">
+                <h3><i class="fas fa-list"></i> All Available Agents</h3>
+                <div class="agents-grid" id="all-agents-grid">
+                    <!-- All agents will be displayed here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="example-section">
+            <h3><i class="fas fa-lightbulb"></i> Example Queries</h3>
+            <div class="examples-grid">
+                <div class="example-card" data-example="I'm building a simple todo app with React. I'm new to programming and want free tools.">
+                    <h4>Beginner React Project</h4>
+                    <p>"I'm building a simple todo app with React. I'm new to programming and want free tools."</p>
+                </div>
+                <div class="example-card" data-example="Need help with a complex Python data analysis pipeline for machine learning. Working with a team of experienced developers.">
+                    <h4>Data Science Team Project</h4>
+                    <p>"Need help with a complex Python data analysis pipeline for machine learning. Working with a team of experienced developers."</p>
+                </div>
+                <div class="example-card" data-example="Building an enterprise-grade microservices architecture with Node.js and Docker. Security and code review are priorities.">
+                    <h4>Enterprise Backend</h4>
+                    <p>"Building an enterprise-grade microservices architecture with Node.js and Docker. Security and code review are priorities."</p>
+                </div>
+                <div class="example-card" data-example="Learning to code mobile apps with React Native. Want something that explains code and helps me understand concepts.">
+                    <h4>Mobile Development Learning</h4>
+                    <p>"Learning to code mobile apps with React Native. Want something that explains code and helps me understand concepts."</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 AI Coding Agent Recommender | <a href="https://github.com/yourusername/ai-agent-recommender">View on GitHub</a></p>
+            <p class="disclaimer">Recommendations are based on publicly available information and may vary based on specific use cases.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
