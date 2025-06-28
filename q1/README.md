@@ -178,18 +178,6 @@ Typical accuracy:
 
 
 ```bash
-# Clone your fork
-git clone https://github.com/Pranav452/Day-5/tree/main/q1
-
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Run tests
-python -m pytest tests/
-
-# Start development server
-python -m http.server 8000
-```
 
 ## Acknowledgments
 
