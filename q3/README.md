@@ -2,7 +2,7 @@
 
 A sophisticated web application that analyzes and optimizes prompts for specific AI coding tools, providing tool-specific enhancements and detailed explanations for improved coding assistance effectiveness.
 
-![Adaptive Prompt Optimizer](https://via.placeholder.com/800x400/667eea/ffffff?text=Adaptive+Prompt+Optimizer)
+![Adaptive Prompt Optimizer](image.png)
 
 ## Features
 
