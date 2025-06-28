@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Inference: VRAM & Performance Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>LLM Inference: VRAM & Performance Calculator</h1>
+            <nav>
+                <span class="nav-item active">Inference</span>
+              </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="calculator-grid">
+            <div class="config-panel">
+                <div class="config-section">
+                    <label for="model-select">Select Model *</label>
+                    <select id="model-select">
+                        <option value="">Choose a model</option>
+                        <option value="llama-7b">Llama 2 7B</option>
+                        <option value="llama-13b">Llama 2 13B</option>
+                        <option value="llama-70b">Llama 2 70B</option>
+                        <option value="mixtral-8x7b">Mixtral 8x7B</option>
+                        <option value="gpt-4">GPT-4 (Estimated)</option>
+                        <option value="custom">Custom Model</option>
+                    </select>
+                </div>
+
+                <div class="config-section" id="custom-params" style="display: none;">
+                    <label for="custom-params-input">Model Parameters (Billions)</label>
+                    <input type="number" id="custom-params-input" placeholder="7" min="0.1" step="0.1">
+                </div>
+
+                <div class="config-section">
+                    <label for="inference-quantization">Inference Quantization</label>
+                    <select id="inference-quantization">
+                        <option value="fp16">FP16</option>
+                        <option value="int8">INT8</option>
+                        <option value="int4">INT4</option>
+                        <option value="fp32">FP32</option>
+                    </select>
+                    <small>Precision for model weights during inference. Lower uses less VRAM but may affect quality.</small>
+                </div>
+
+                <div class="config-section">
+                    <label for="kv-cache-quantization">KV Cache Quantization</label>
+                    <select id="kv-cache-quantization">
+                        <option value="fp16">FP16</option>
+                        <option value="int8">INT8</option>
+                        <option value="int4">INT4</option>
+                        <option value="fp32">FP32</option>
+                    </select>
+                    <small>KV Cache precision. Lower values reduce VRAM, especially for long sequences.</small>
+                </div>
+
+                <div class="config-section">
+                    <h3>Hardware Configuration</h3>
+                    <label for="gpu-select">Select your GPU or set custom VRAM</label>
+                    <select id="gpu-select">
+                        <option value="t4-16gb">NVIDIA T4 (16GB)</option>
+                        <option value="a100-40gb">NVIDIA A100 (40GB)</option>
+                        <option value="a100-80gb">NVIDIA A100 (80GB)</option>
+                        <option value="h100-80gb">NVIDIA H100 (80GB)</option>
+                        <option value="rtx4090-24gb">RTX 4090 (24GB)</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    
+                    <div id="custom-vram" style="display: none;">
+                        <label for="custom-vram-input">Custom VRAM (GB)</label>
+                        <input type="number" id="custom-vram-input" placeholder="24" min="1" step="1">
+                    </div>
+
+                    <label for="num-gpus">Num GPUs</label>
+                    <input type="number" id="num-gpus" value="1" min="1" max="8">
+                    <small>Devices for parallel inference</small>
+                </div>
+
+                <div class="config-section">
+                    <label for="batch-size">Batch Size: <span id="batch-size-value">1</span></label>
+                    <input type="range" id="batch-size" min="0" max="5" value="0" step="1">
+                    <div class="range-labels">
+                        <span>1</span>
+                        <span>8</span>
+                        <span>16</span>
+                        <span>32</span>
+                        <span>64</span>
+                        <span>128</span>
+                    </div>
+                    <small>Inputs processed simultaneously per step (affects throughput & latency)</small>
+                </div>
+
+                <div class="config-section">
+                    <label for="sequence-length">Sequence Length: <span id="sequence-length-value">2,048</span></label>
+                    <input type="range" id="sequence-length" min="0" max="6" value="1" step="1">
+                    <div class="range-labels">
+                        <span>512</span>
+                        <span>2K</span>
+                        <span>4K</span>
+                        <span>8K</span>
+                        <span>16K</span>
+                        <span>32K</span>
+                        <span>64K</span>
+                    </div>
+                    <small>Max tokens per input; impacts KV cache & activations.</small>
+                </div>
+
+                <div class="config-section">
+                    <label for="concurrent-users">Concurrent Users: <span id="concurrent-users-value">1</span></label>
+                    <input type="range" id="concurrent-users" min="0" max="5" value="0" step="1">
+                    <div class="range-labels">
+                        <span>1</span>
+                        <span>4</span>
+                        <span>8</span>
+                        <span>16</span>
+                        <span>32</span>
+                        <span>64</span>
+                    </div>
+                    <small>Number of users running inference simultaneously</small>
+                </div>
+
+                <div class="config-section">
+                    <label>
+                        <input type="checkbox" id="enable-offloading">
+                        Enable Offloading to CPU/RAM or NVMe
+                    </label>
+                </div>
+
+                <div class="config-section">
+                    <label for="deployment-mode">Deployment Mode</label>
+                    <select id="deployment-mode">
+                        <option value="local">Local Deployment</option>
+                        <option value="cloud">Cloud API</option>
+                        <option value="hosted">Hosted Service</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="results-panel">
+                <h3>Performance & Memory Results</h3>
+                
+                <div class="vram-indicator">
+                    <div class="vram-text">
+                        <span id="vram-usage">0.0%</span>
+                        <span>VRAM</span>
+                    </div>
+                    <div class="vram-bar">
+                        <div class="vram-fill" id="vram-fill"></div>
+                    </div>
+                    <div class="vram-details">
+                        <span id="vram-used">0 GB</span> of <span id="vram-total">0 GB</span> VRAM
+                    </div>
+                </div>
+
+                <div class="performance-metrics">
+                    <div class="metric">
+                        <label>Generation Speed:</label>
+                        <span id="generation-speed">...</span>
+                    </div>
+                    <div class="metric">
+                        <label>Total Throughput:</label>
+                        <span id="total-throughput">...</span>
+                    </div>
+                    <div class="metric">
+                        <label>Latency per Request:</label>
+                        <span id="latency-per-request">...</span>
+                    </div>
+                    <div class="metric">
+                        <label>Cost per Request:</label>
+                        <span id="cost-per-request">...</span>
+                    </div>
+                    <div class="metric">
+                        <label>Hardware Compatibility:</label>
+                        <span id="hardware-compatibility">...</span>
+                    </div>
+                </div>
+
+                <div class="simulation-details">
+                    <h4>Inference Simulation</h4>
+                    <div id="simulation-info">
+                        <p>Configure model and hardware to enable simulation</p>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h4>Recommendations</h4>
+                    <div id="recommendations-content">
+                        <p>Select a model to see recommendations for your use case.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="use-cases">
+            <h3>Common Use Cases</h3>
+            <div class="use-case-tabs">
+                <button class="use-case-tab active" data-case="chatbot">Chatbot</button>
+                <button class="use-case-tab" data-case="summarization">Document Summarization</button>
+                <button class="use-case-tab" data-case="classification">Batch Classification</button>
+            </div>
+            <div class="use-case-content" id="use-case-content">
+                <div class="use-case active" id="chatbot">
+                    <h4>Chatbot Applications</h4>
+                    <p><strong>Requirements:</strong> Low latency (&lt;1 second), moderate throughput</p>
+                    <p><strong>Recommended Setup:</strong> Llama 7B on A100 40GB or T4 with quantization</p>
+                    <p><strong>Typical Configuration:</strong> Batch size 1-4, Sequence length 2K-4K</p>
+                </div>
+                <div class="use-case" id="summarization">
+                    <h4>Document Summarization</h4>
+                    <p><strong>Requirements:</strong> High throughput, moderate latency tolerance</p>
+                    <p><strong>Recommended Setup:</strong> Llama 13B or larger on A100 80GB</p>
+                    <p><strong>Typical Configuration:</strong> Batch size 8-16, Sequence length 8K-16K</p>
+                </div>
+                <div class="use-case" id="classification">
+                    <h4>Batch Classification</h4>
+                    <p><strong>Requirements:</strong> Maximum throughput, latency-tolerant</p>
+                    <p><strong>Recommended Setup:</strong> Fine-tuned smaller models on multiple GPUs</p>
+                    <p><strong>Typical Configuration:</strong> Large batch sizes, shorter sequences</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 LLM Inference Calculator | <a href="https://github.com/yourusername/llm-inference-calculator">Pranav Nair</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
